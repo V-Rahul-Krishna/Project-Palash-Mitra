@@ -484,3 +484,39 @@ export const lessonLibrary = [
     updated: "1 month ago",
   },
 ];
+export const learningGaps = [
+  {
+    id: "quantity-numeral",
+    title: "Quantity → Numeral",
+    description: "Some learners can count objects but struggle to connect the quantity with the written numeral.",
+    status: "Needs Reinforcement",
+  },
+  {
+    id: "visual-counting",
+    title: "Visual Counting",
+    description: "A small group benefits from slower counting with smaller visual groups.",
+    status: "Watch",
+  },
+  {
+    id: "verbal-response",
+    title: "Verbal Response",
+    description: "Some learners need another opportunity to count and answer verbally.",
+    status: "Developing",
+  },
+];
+
+export const topicSkillProgress = [
+  { id: "count-objects", label: "Count objects", percentage: 90 },
+  { id: "recognize-numerals", label: "Recognize numerals", percentage: 82 },
+  { id: "match-quantity", label: "Match quantity to numeral", percentage: 68 },
+  { id: "count-verbally", label: "Count verbally", percentage: 75 },
+];
+
+export const learningLoopStages = [
+  "Teach",
+  "Interact",
+  "Assess",
+  "Identify Gap",
+  "Reinforce",
+  "Reassess",
+];

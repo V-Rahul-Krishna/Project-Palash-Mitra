@@ -1176,3 +1176,112 @@ body {
   text-align: center;
   padding: var(--space-7) var(--space-4);
 }
+/* ============================================
+   PROGRESS — additions
+   ============================================ */
+
+.gap-card {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.gap-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-3);
+}
+
+.gap-status.needs-reinforcement {
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.gap-status.watch {
+  color: var(--warning);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.gap-status.developing {
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: 12px;
+}
+
+.skill-label {
+  width: 190px;
+  flex-shrink: 0;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.skill-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--surface-elevated);
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+.skill-pct {
+  width: 44px;
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.loop-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: var(--space-2) 0;
+}
+
+.loop-node {
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.demo-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px 9px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
