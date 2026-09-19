@@ -14,6 +14,7 @@ import {
   ArrowDown,
   X,
 } from "lucide-react";
+import { translateText } from "../api";
 import {
   classInfo,
   currentLesson,
@@ -45,6 +46,9 @@ export default function LiveClassroom({ onNavigate }) {
   const [answerState, setAnswerState] = useState("pending"); // pending | correct | incorrect
   const [questionRound, setQuestionRound] = useState(1);
   const [reviewOpen, setReviewOpen] = useState(false);
+  const [translation, setTranslation] = useState(null);
+const [isTranslating, setIsTranslating] = useState(false);
+const [translationError, setTranslationError] = useState("");
   const timers = useRef([]);
 
   const clearTimers = () => {
@@ -54,22 +58,39 @@ export default function LiveClassroom({ onNavigate }) {
   useEffect(() => () => clearTimers(), []);
 
   // SPEAK: run teacher pipeline animation
-  const handleSpeak = () => {
-    clearTimers();
-    setIsListening(true);
-    setPipelineIndex(0);
-    setFlowStage(0);
-    pipelineStages.forEach((_, i) => {
-      const t = setTimeout(() => setPipelineIndex(i), i * 500);
-      timers.current.push(t);
-    });
-    const done = setTimeout(() => {
-      setIsListening(false);
-      setFlowStage(1); // AI Understands
-    }, pipelineStages.length * 500 + 300);
-    timers.current.push(done);
-  };
+const handleSpeak = async () => {
+  clearTimers();
 
+  setIsListening(true);
+  setPipelineIndex(0);
+  setFlowStage(0);
+
+  setTranslation(null);
+  setTranslationError("");
+  setIsTranslating(true);
+
+  try {
+    const result = await translateText(
+      teacherSpeech.hindi,
+      "Hindi",
+      "Santali"
+    );
+
+    setTranslation(result);
+  } catch (err) {
+    console.error(err);
+    setTranslationError("Unable to translate teacher speech.");
+  } finally {
+    setIsListening(false);
+    setIsTranslating(false);
+    setFlowStage(1);
+  }
+
+  pipelineStages.forEach((_, i) => {
+    const t = setTimeout(() => setPipelineIndex(i), i * 500);
+    timers.current.push(t);
+  });
+};
   // PLAY SANTALI: reveal audio + advance flow toward assessment
   const handlePlaySantali = () => {
     clearTimers();
@@ -199,8 +220,19 @@ export default function LiveClassroom({ onNavigate }) {
             </div>
 
             <div className="heading-md" style={{ fontSize: 18, marginBottom: 4 }}>
-              {classroomDisplay.activityTitle}
+             {translation?.translated_text || classroomDisplay.santali}
             </div>
+            {isTranslating && (
+  <div className="text-xs opacity-60 mt-2">
+    Translating...
+  </div>
+)}
+
+{translationError && (
+  <div className="text-xs opacity-60 mt-2">
+    {translationError}
+  </div>
+)}
             <div className="text-muted" style={{ fontSize: 11.5 }}>
               Question {questionRound}
             </div>

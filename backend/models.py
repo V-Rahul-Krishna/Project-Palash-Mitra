@@ -6,9 +6,15 @@ class Lesson(Base):
     __tablename__ = "lessons"
 
     id = Column(Integer, primary_key=True, index=True)
+
     grade = Column(String)
     subject = Column(String)
     topic = Column(String)
     outcome = Column(Text)
+
     teaching_language = Column(String)
     classroom_language = Column(String)
+
+    status = Column(String, default="Draft")
+    duration = Column(String, default="25 min")
+    language_status = Column(String, default="Pending verification")

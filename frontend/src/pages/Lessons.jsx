@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo,useEffect } from "react";
+
 import {
   Plus,
   Search,
@@ -6,15 +7,14 @@ import {
   Clock,
   Languages,
   ShieldAlert,
-  CheckCircle2,
   X,
   Sparkles,
 } from "lucide-react";
 import {
-  lessonOverview,
   lessonFilterOptions,
-  lessonLibrary,
 } from "../data/demoData";
+
+import { getLessons } from "../api";
 
 const STATUS_CLASS = {
   Ready: "ready",
@@ -33,27 +33,76 @@ export default function Lessons({ onNavigate }) {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [openLesson, setOpenLesson] = useState(null);
-
-  const filteredLessons = useMemo(() => {
-    const q = search.trim().toLowerCase();
-
-    return lessonLibrary.filter((lesson) => {
-      const matchesSearch =
-        !q ||
-        lesson.title.toLowerCase().includes(q) ||
-        lesson.subject.toLowerCase().includes(q) ||
-        lesson.topic.toLowerCase().includes(q) ||
-        lesson.outcome.toLowerCase().includes(q);
-
-      const matchesGrade = filters.grade === "All Grades" || lesson.grade === filters.grade;
-      const matchesSubject = filters.subject === "All Subjects" || lesson.subject === filters.subject;
-      const matchesStatus = filters.status === "All" || lesson.status === filters.status;
-      const matchesLanguage =
-        filters.language === "All Languages" || lesson.classroomLanguage === filters.language;
-
-      return matchesSearch && matchesGrade && matchesSubject && matchesStatus && matchesLanguage;
+  const [lessons, setLessons] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
+useEffect(() => {
+  getLessons()
+    .then((data) => {
+      setLessons(data);
+      setError("");
+    })
+    .catch((err) => {
+      console.error(err);
+      setError("Unable to load lessons.");
+    })
+    .finally(() => {
+      setLoading(false);
     });
-  }, [search, filters]);
+}, []);
+  const filteredLessons = useMemo(() => {
+  const q = search.trim().toLowerCase();
+
+  const normalizedLessons = lessons.map((lesson) => ({
+    ...lesson,
+    title: `${lesson.grade} • ${lesson.subject} • ${lesson.topic}`,
+    teachingLanguage: lesson.teaching_language,
+    classroomLanguage: lesson.classroom_language,
+    languageStatus: lesson.language_status,
+    updated: "Just now",
+  }));
+
+  return normalizedLessons.filter((lesson) => {
+    const matchesSearch =
+      !q ||
+      lesson.title.toLowerCase().includes(q) ||
+      lesson.subject.toLowerCase().includes(q) ||
+      lesson.topic.toLowerCase().includes(q) ||
+      lesson.outcome.toLowerCase().includes(q);
+
+    const matchesGrade =
+      filters.grade === "All Grades" ||
+      lesson.grade === filters.grade;
+
+    const matchesSubject =
+      filters.subject === "All Subjects" ||
+      lesson.subject === filters.subject;
+
+    const matchesStatus =
+      filters.status === "All" ||
+      lesson.status === filters.status;
+
+    const matchesLanguage =
+      filters.language === "All Languages" ||
+      lesson.classroomLanguage === filters.language;
+
+    return (
+      matchesSearch &&
+      matchesGrade &&
+      matchesSubject &&
+      matchesStatus &&
+      matchesLanguage
+    );
+  });
+}, [lessons, search, filters]);
+const lessonStats = useMemo(() => {
+  return {
+    total: lessons.length,
+    readyToTeach: lessons.filter((lesson) => lesson.status === "Ready").length,
+    needsReview: lessons.filter((lesson) => lesson.status === "Needs Review").length,
+    drafts: lessons.filter((lesson) => lesson.status === "Draft").length,
+  };
+}, [lessons]);
 
   const clearFilters = () => {
     setSearch("");
@@ -95,19 +144,19 @@ export default function Lessons({ onNavigate }) {
         >
           <div className="card">
             <div className="label-uppercase" style={{ marginBottom: 6 }}>Total Lessons</div>
-            <div style={{ fontSize: 24, fontWeight: 700 }}>{lessonOverview.total}</div>
+            <div style={{ fontSize: 24, fontWeight: 700 }}>{lessonStats.total}</div>
           </div>
           <div className="card">
             <div className="label-uppercase" style={{ marginBottom: 6 }}>Ready to Teach</div>
-            <div style={{ fontSize: 24, fontWeight: 700, color: "var(--success)" }}>{lessonOverview.readyToTeach}</div>
+            <div style={{ fontSize: 24, fontWeight: 700, color: "var(--success)" }}>{lessonStats.readyToTeach}</div>
           </div>
           <div className="card">
             <div className="label-uppercase" style={{ marginBottom: 6 }}>Needs Review</div>
-            <div style={{ fontSize: 24, fontWeight: 700, color: "var(--warning)" }}>{lessonOverview.needsReview}</div>
+            <div style={{ fontSize: 24, fontWeight: 700, color: "var(--warning)" }}>{lessonStats.needsReview}</div>
           </div>
           <div className="card">
             <div className="label-uppercase" style={{ marginBottom: 6 }}>Drafts</div>
-            <div style={{ fontSize: 24, fontWeight: 700, color: "var(--text-secondary)" }}>{lessonOverview.drafts}</div>
+            <div style={{ fontSize: 24, fontWeight: 700, color: "var(--text-secondary)" }}>{lessonStats.drafts}</div>
           </div>
         </div>
         <div className="text-muted" style={{ fontSize: 11, marginTop: -12, marginBottom: "var(--space-6)" }}>
@@ -172,7 +221,21 @@ export default function Lessons({ onNavigate }) {
         </div>
 
         {/* ---------- LESSON GRID / EMPTY STATE ---------- */}
-        {filteredLessons.length === 0 ? (
+        {loading ? (
+  <div className="card empty-state">
+    <div className="heading-md">Loading lessons...</div>
+  </div>
+) : error ? (
+  <div className="card empty-state">
+    <div className="heading-md">Unable to load lessons</div>
+    <div
+      className="text-secondary"
+      style={{ fontSize: 12.5, marginTop: 6 }}
+    >
+      {error}
+    </div>
+  </div>
+) : filteredLessons.length === 0 ? (
           <div className="card empty-state">
             <BookOpen size={28} color="var(--text-muted)" style={{ marginBottom: "var(--space-3)" }} />
             <div className="heading-md" style={{ marginBottom: 6 }}>No lessons found</div>

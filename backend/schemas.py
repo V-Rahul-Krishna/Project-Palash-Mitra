@@ -8,6 +8,9 @@ class LessonCreate(BaseModel):
     outcome: str
     teaching_language: str
     classroom_language: str
+    status: str = "Draft"
+    duration: str = "25 min"
+    language_status: str = "Pending verification"
 
 
 class LessonResponse(LessonCreate):
