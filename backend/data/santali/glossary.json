@@ -1,0 +1,94 @@
+{
+  "_meta": {
+    "module": "M5 - Santali Language Safety",
+    "description": "Verified glossary store for Hindi <-> Santali (Ol Chiki) terms.",
+    "warning": "Entries below with source 'SEED_PLACEHOLDER' are NOT real verified translations. They exist only so the M5 API/tests have data to run against. They are intentionally marked UNVERIFIED and must never be surfaced to a classroom as correct. Real entries must be added by a native-speaker/linguist reviewer through the teacher-correction -> validation workflow, which is the only path that can set status to VERIFIED.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "id": "seed-0001",
+      "hindi": "नमस्ते",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "greetings",
+      "context": "classroom_opening",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - no verified Santali/Ol Chiki equivalent has been entered yet. Needs native-speaker review before use."
+    },
+    {
+      "id": "seed-0002",
+      "hindi": "बैठ जाओ",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "classroom_commands",
+      "context": "teacher_instruction",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - awaiting verified classroom-command translation."
+    },
+    {
+      "id": "seed-0003",
+      "hindi": "एक",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "numbers",
+      "context": "mathematics",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - number-name glossary needs verified Santali/Ol Chiki numerals from a linguist source."
+    },
+    {
+      "id": "seed-0004",
+      "hindi": "किताब",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "school_objects",
+      "context": "classroom",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - pending verified entry."
+    },
+    {
+      "id": "seed-0005",
+      "hindi": "शाबाश",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "classroom",
+      "context": "positive_feedback",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - pending verified entry."
+    },
+    {
+      "id": "seed-0006",
+      "hindi": "धन्यवाद",
+      "santali": "TEST_FIXTURE_NOT_A_REAL_TRANSLATION",
+      "ol_chiki": "TEST_FIXTURE_NOT_A_REAL_TRANSLATION",
+      "transliteration": null,
+      "category": "classroom",
+      "context": "closing",
+      "status": "REVIEW_REQUIRED",
+      "confidence": 0.4,
+      "source": "SYNTHETIC_TEST_FIXTURE",
+      "reviewer": null,
+      "notes": "This is a synthetic fixture used only to exercise the REVIEW_REQUIRED code path in automated tests. The santali/ol_chiki values are deliberately non-linguistic placeholder text, NOT a real translation, and must be replaced with a real teacher-submitted candidate before this entry has any meaning."
+    }
+  ]
+}

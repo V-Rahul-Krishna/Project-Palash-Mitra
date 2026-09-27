@@ -1,0 +1,52 @@
+{
+  "_meta": {
+    "module": "M5 - Santali Language Safety",
+    "description": "Curated classroom-phrase / curriculum-terminology entries. Same schema and safety rules as glossary.json.",
+    "warning": "All entries here are SEED_PLACEHOLDER and UNVERIFIED until a native-speaker reviewer validates and updates them via the teacher-correction workflow.",
+    "schema_version": 1
+  },
+  "entries": [
+    {
+      "id": "phrase-0001",
+      "hindi": "आज हम गिनती सीखेंगे",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "curriculum",
+      "context": "lesson_intro",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - curriculum-terminology entry pending verification."
+    },
+    {
+      "id": "phrase-0002",
+      "hindi": "सुनो और दोहराओ",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "teacher_instructions",
+      "context": "activity_instruction",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - pending verified entry."
+    },
+    {
+      "id": "phrase-0003",
+      "hindi": "अपनी किताब खोलो",
+      "santali": null,
+      "ol_chiki": null,
+      "transliteration": null,
+      "category": "classroom_commands",
+      "context": "teacher_instruction",
+      "status": "UNVERIFIED",
+      "confidence": 0.0,
+      "source": "SEED_PLACEHOLDER",
+      "reviewer": null,
+      "notes": "Placeholder only - pending verified entry."
+    }
+  ]
+}
