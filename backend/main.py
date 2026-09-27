@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from database import Base, engine
 from routes.lessons import router as lesson_router
 from routes.translation import router as translation_router
+from routes.assessments import router as assessment_router
 
 app = FastAPI(title="PALASH MITRA API")
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,9 +15,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 Base.metadata.create_all(bind=engine)
+
 app.include_router(lesson_router)
 app.include_router(translation_router)
+app.include_router(assessment_router)
+
+
 @app.get("/")
 def root():
     return {
